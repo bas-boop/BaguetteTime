@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-using Framework.DebugSystem;
+using Framework.Gameplay;
 
 namespace Player.Input
 {
@@ -10,7 +10,7 @@ namespace Player.Input
     {
         [SerializeField] private Movement movement;
         [SerializeField] private Rotator rotator;
-        [SerializeField] private Messenger test;
+        [SerializeField] private InteractManager interactManager;
         
         private PlayerInput _playerInput;
         private InputActionAsset _playerControlsActions;
@@ -61,6 +61,6 @@ namespace Player.Input
             _playerControlsActions[InputActions.INTERACT_ACTION].performed += Interact;
         }
 
-        private void Interact(InputAction.CallbackContext obj) => test.DebugLog("Interact");
+        private void Interact(InputAction.CallbackContext obj) => interactManager.CheckInteraction();
     }
 }

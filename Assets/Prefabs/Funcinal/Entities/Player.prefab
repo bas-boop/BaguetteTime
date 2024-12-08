@@ -155,10 +155,10 @@ GameObject:
   - component: {fileID: 3359765667150023684}
   - component: {fileID: 6968543691850175202}
   - component: {fileID: 3945400085069069641}
-  - component: {fileID: 1028678370846132591}
+  - component: {fileID: 6623387630488781577}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -358,7 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 6968543691850175202}
   rotator: {fileID: 3945400085069069641}
-  test: {fileID: 1028678370846132591}
+  interactManager: {fileID: 6623387630488781577}
 --- !u!114 &6968543691850175202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,7 +389,7 @@ MonoBehaviour:
   yawSensitivity: 0.2
   pitchSensitivity: 0.2
   minMaxPitch: {x: -80, y: 80}
---- !u!114 &1028678370846132591
+--- !u!114 &6623387630488781577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -398,6 +398,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3446488183490510711}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4ae079caf6e442b98596a7c6489e999, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e6a18477e4f4961a777adb2d6b1e8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactables:
+  - {fileID: 0}
