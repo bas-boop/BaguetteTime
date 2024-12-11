@@ -1,10 +1,9 @@
-﻿using UnityEditor;
-
-using Framework;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 
 namespace Editor.Drawers
 {
-    [CustomEditor(typeof(Timer))]
+    [CustomEditor(typeof(Framework.Timer))]
     public sealed class TimerEditor : UnityEditor.Editor
     {
         private SerializedProperty _isCountingUp;
@@ -17,30 +16,28 @@ namespace Editor.Drawers
         private SerializedProperty _onStart;
         private SerializedProperty _onReset;
 
-        /// <summary>
-        /// Display every serialized variable, headers and space.
-        /// </summary>
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-    
+
             EditorGUILayout.LabelField("Set up", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_isCountingUp);
             EditorGUILayout.PropertyField(_canCountOnStart);
-            
+
             EditorGUILayout.LabelField("Settings", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_isCountingUp.boolValue ? _timerThreshold : _startingTime);
+
             EditorGUILayout.PropertyField(_canCount);
-            
+
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Events", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(_isCountingUp.boolValue ? _onTimerPassedThreshold : _onTimerDone);
             EditorGUILayout.PropertyField(_onStart);
             EditorGUILayout.PropertyField(_onReset);
-    
+            // EditorGUILayout.PropertyField(_isCountingUp.boolValue ? _onTimerPassedThreshold : _onTimerDone);
+
             serializedObject.ApplyModifiedProperties();
         }
-        
+
         private void OnEnable()
         {
             _isCountingUp = serializedObject.FindProperty("isCountingUp");
@@ -48,10 +45,11 @@ namespace Editor.Drawers
             _timerThreshold = serializedObject.FindProperty("timerThreshold");
             _canCount = serializedObject.FindProperty("canCount");
             _canCountOnStart = serializedObject.FindProperty("canCountOnStart");
-            _onTimerDone = serializedObject.FindProperty("OnTimerDone");
-            _onTimerPassedThreshold = serializedObject.FindProperty("onTimerPassedThreshold");
             _onStart = serializedObject.FindProperty("onStart");
             _onReset = serializedObject.FindProperty("onReset");
+            _onTimerDone = serializedObject.FindProperty("onTimerDone");
+            _onTimerPassedThreshold = serializedObject.FindProperty("onTimerPassedThreshold");
         }
     }
 }
+#endif

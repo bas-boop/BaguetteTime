@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace Framework.Gameplay.Farming
 {
+    [DefaultExecutionOrder(1)]
     public sealed class DirtPath : Interactable
     {
         [SerializeField] private Grain grain;
+        [SerializeField] private Timer growTimer;
+        [SerializeField] private UnityEvent grownd;
 
+        private bool _isPlanted;
+        
         private void Start()
         {
             grain.gameObject.SetActive(false);
@@ -13,7 +19,16 @@ namespace Framework.Gameplay.Farming
 
         public override void DoInteraction()
         {
-            grain.gameObject.SetActive(true);
+            if (!_isPlanted)
+            {
+                _isPlanted = true;
+                grain.StartGrowing();
+                growTimer.StartCounting();
+                return;
+            }
+            
+            grain.StopAllCoroutines();
+            grownd?.Invoke();
         }
     }
 }
