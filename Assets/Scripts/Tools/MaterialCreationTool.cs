@@ -11,9 +11,26 @@ namespace Tools
         
         private static string _lastCreatedMaterialPath;
 
-        public static void CreateMaterialCopy(Material targetMat) 
-            => CreateMaterial(targetMat);
+        /// <summary>
+        /// Create a runtime material based on a target material.
+        /// </summary>
+        public static Material CreateMaterialCopy(Material targetMat)
+        {
+            if (targetMat == null)
+            {
+                Debug.LogError("Target material is null!");
+                return null;
+            }
 
+            Material newMaterial = new (targetMat)
+            {
+                name = GetRandomName(targetMat.name)
+            };
+
+            return newMaterial;
+        }
+        
+#if UNITY_EDITOR
         public static (Material, string) CreateAndReturnMaterialCopy(Material targetMat)
             => (CreateMaterial(targetMat), _lastCreatedMaterialPath);
 
@@ -21,7 +38,6 @@ namespace Tools
 
         public static void DeleteMaterial(string path) => AssetDatabase.DeleteAsset(path);
 
-#if UNITY_EDITOR
         [MenuItem("Tools/Materials/Delete All Runtime Materials")]
         private static void DeleteAllRuntimeMaterials()
         {
@@ -56,7 +72,6 @@ namespace Tools
             
             Debug.Log($"Material created at {MATERIAL_DIRECTORY}");
         }
-#endif
     
         private static Material CreateMaterial(Material targetMat)
         {
@@ -69,9 +84,14 @@ namespace Tools
             
             return AssetDatabase.LoadAssetAtPath<Material>(_lastCreatedMaterialPath);
         }
+#endif
 
         private static string GetRandomName() => $"{Random.Range(0, 99)}-{Random.Range(0, 99)}";
 
-        private static string GetRandomName(string baseName) => $"{baseName}{Random.Range(0, 99)}-{Random.Range(0, 99)}";
+        /// <summary>
+        /// Generates a random name for the material.
+        /// </summary>
+        private static string GetRandomName(string baseName) 
+            => $"{baseName}_{Random.Range(0, 99)}_{Random.Range(0, 99)}";
     }
 }
