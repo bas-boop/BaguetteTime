@@ -2,12 +2,13 @@
 using UnityEngine;
 
 using Framework.Extensions;
+using Framework.Gameplay.HeldItemSystem;
 using Tools;
 
 namespace Framework.Gameplay.Farming
 {
     [DefaultExecutionOrder(0)]
-    public sealed class Grain : MonoBehaviour
+    public sealed class Grain : HeldItem
     {
         [SerializeField] private float growHeight = 1;
         [SerializeField] private float growSpeed = 1;
