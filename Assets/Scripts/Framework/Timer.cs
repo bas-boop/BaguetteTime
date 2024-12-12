@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Framework
 {
@@ -19,7 +20,7 @@ namespace Framework
 
         #region Events
 
-        [field: SerializeField] public UnityEvent OnTimerDone { get; private set; } = new();
+        [SerializeField] private UnityEvent onTimerDone = new();
         [SerializeField] private UnityEvent onTimerPassedThreshold = new();
         [SerializeField] private UnityEvent onStart = new();
         [SerializeField] private UnityEvent onReset = new();
@@ -102,7 +103,7 @@ namespace Framework
             {
                 case false
                     when _currentTimer <= 0:
-                    OnTimerDone?.Invoke();
+                    onTimerDone?.Invoke();
                     SetCanCount(false);
                     break;
                 case true
