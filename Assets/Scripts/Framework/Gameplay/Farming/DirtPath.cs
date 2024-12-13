@@ -8,27 +8,29 @@ namespace Framework.Gameplay.Farming
     {
         [SerializeField] private Grain grain;
         [SerializeField] private Timer growTimer;
-        [SerializeField] private UnityEvent grownd;
+        [SerializeField] private UnityEvent onHarvested;
 
-        private bool _isPlanted;
+        private PlantingState _currentState;
         
-        private void Start()
-        {
-            grain.gameObject.SetActive(false);
-        }
+        private void Start() => grain.gameObject.SetActive(false);
 
         public override void DoInteraction()
         {
-            if (!_isPlanted)
+            switch (_currentState)
             {
-                _isPlanted = true;
-                grain.StartGrowing();
-                growTimer.StartCounting();
-                return;
+                case PlantingState.HARVESTED:
+                    break;
+                case PlantingState.NOT_PLANTED:
+                    _currentState = PlantingState.PLANTED;
+                    grain.StartGrowing();
+                    growTimer.StartCounting();
+                    break;
+                case PlantingState.PLANTED:
+                    _currentState = PlantingState.HARVESTED;
+                    grain.StopAllCoroutines();
+                    onHarvested?.Invoke();
+                    break;
             }
-            
-            grain.StopAllCoroutines();
-            grownd?.Invoke();
         }
     }
 }

@@ -6,6 +6,8 @@ using Framework.Gameplay;
 namespace Player.Input
 {
     [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(Rotator))]
+    [RequireComponent(typeof(InteractManager))]
     public sealed class InputParser : MonoBehaviour
     {
         [SerializeField] private Movement movement;
