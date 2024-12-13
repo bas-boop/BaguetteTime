@@ -19,29 +19,33 @@ namespace Framework.Gameplay.HeldItemSystem
             UpdateItemToShow();
         }
         
-        public void ReleaseItem(HeldItem targetItem)
+        public bool ReleaseItem(HeldItem targetItem)
         {
             if (!targetItem.IsBeingHeld
                 || !heldItems.Contains(targetItem))
-                return;
+                return false;
             
             heldItems.Remove(targetItem);
             targetItem.IsBeingHeld = false;
             visibleItem = null;
             UpdateItemToShow();
+            return true;
         }
         
-        public void ReleaseItem(int targetIndex)
+        public bool ReleaseItem(int targetIndex)
         {
             if (heldItems.Count == 0
                 || heldItems.Count < targetIndex)
-                return;
+                return false;
             
             heldItems[targetIndex].IsBeingHeld = false;
             heldItems.RemoveAt(targetIndex);
             visibleItem = null;
             UpdateItemToShow();
+            return true;
         }
+
+        public HeldItem GetItemFormHolder(HeldItem targetItem) => heldItems.Contains(targetItem) ? targetItem : null;
 
         private void UpdateItemToShow()
         {

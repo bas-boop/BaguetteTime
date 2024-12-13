@@ -450,8 +450,6 @@ MonoBehaviour:
   interactables:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &5631732800481065651
 MonoBehaviour:
   m_ObjectHideFlags: 0

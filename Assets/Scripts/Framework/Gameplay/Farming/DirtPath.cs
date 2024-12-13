@@ -11,14 +11,15 @@ namespace Framework.Gameplay.Farming
         [SerializeField] private UnityEvent grownd;
 
         private bool _isPlanted;
+        private bool _isHarvested;
         
-        private void Start()
-        {
-            grain.gameObject.SetActive(false);
-        }
+        private void Start() => grain.gameObject.SetActive(false);
 
         public override void DoInteraction()
         {
+            if(_isHarvested)
+                return;
+            
             if (!_isPlanted)
             {
                 _isPlanted = true;
@@ -26,7 +27,8 @@ namespace Framework.Gameplay.Farming
                 growTimer.StartCounting();
                 return;
             }
-            
+
+            _isHarvested = true;
             grain.StopAllCoroutines();
             grownd?.Invoke();
         }

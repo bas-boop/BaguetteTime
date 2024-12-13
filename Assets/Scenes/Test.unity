@@ -469,6 +469,7 @@ GameObject:
   - component: {fileID: 154641896}
   - component: {fileID: 154641895}
   - component: {fileID: 154641894}
+  - component: {fileID: 154641899}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -489,6 +490,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   p_playerTag: Player
+  onInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 154641899}
+        m_TargetAssemblyTypeName: Framework.Gameplay.HeldItemSystem.ItemTaker, Assembly-CSharp
+        m_MethodName: TakeItem
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 381991965}
+          m_ObjectArgumentAssemblyTypeName: Framework.Gameplay.HeldItemSystem.HeldItem,
+            Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!135 &154641895
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -578,6 +595,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &154641899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154641893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22127ab23a24989b8e6444153f57506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemHolder: {fileID: 3637643318485839306}
+  onTakeItem:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &381991965 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 583192268151876007, guid: 2d78fc51f6712664abb342e37390375e, type: 3}
+  m_PrefabInstance: {fileID: 3290697290524808976}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cbf53796abb4acf91a2183ef5a4870d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1072224833
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,15 +1949,7 @@ PrefabInstance:
     - target: {fileID: 6623387630488781577, guid: bf0c25a2db79b834bbededc03d56b7e7, type: 3}
       propertyPath: 'interactables.Array.data[1]'
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6623387630488781577, guid: bf0c25a2db79b834bbededc03d56b7e7, type: 3}
-      propertyPath: 'interactables.Array.data[2]'
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6623387630488781577, guid: bf0c25a2db79b834bbededc03d56b7e7, type: 3}
-      propertyPath: 'interactables.Array.data[3]'
-      value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 154641894}
     - target: {fileID: 8473263540897329819, guid: bf0c25a2db79b834bbededc03d56b7e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -73,7 +73,7 @@ namespace Framework.Gameplay.Farming
         }
 
         /// <summary>
-        /// Updates the materials of all specified objects.
+        /// temp function, I hope
         /// </summary>
         private void UpdateMats(Material m)
         {
