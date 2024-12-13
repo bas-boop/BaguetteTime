@@ -39,11 +39,11 @@ namespace Framework.Gameplay.Farming
         {
             gameObject.SetActive(true);
 
-            if (!_isGrowing)
-            {
-                _isGrowing = true;
-                StartCoroutine(MoveToPosition(_finalPosition, growSpeed));
-            }
+            if (_isGrowing)
+                return;
+            
+            _isGrowing = true;
+            StartCoroutine(MoveToPosition(_finalPosition, growSpeed));
         }
 
         private IEnumerator MoveToPosition(Vector3 targetPosition, float duration)
@@ -58,22 +58,19 @@ namespace Framework.Gameplay.Farming
             while (elapsedTime < duration)
             {
                 transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
-                
-                if (_runtimeMaterial != null) 
-                    _runtimeMaterial.color = growColor.Evaluate(elapsedTime / duration);
+                _runtimeMaterial.color = growColor.Evaluate(elapsedTime / duration);
 
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            if (_runtimeMaterial != null) 
-                _runtimeMaterial.color = growColor.Evaluate(1);
-
+            _runtimeMaterial.color = growColor.Evaluate(1);
             transform.position = targetPosition;
         }
 
         /// <summary>
         /// temp function, I hope
+        /// Because of developer art, when good art exist this should be removed or changed.
         /// </summary>
         private void UpdateMats(Material m)
         {

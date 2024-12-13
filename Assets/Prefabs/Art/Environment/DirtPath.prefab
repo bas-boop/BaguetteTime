@@ -448,7 +448,7 @@ MonoBehaviour:
   p_playerTag: Player
   grain: {fileID: 583192268151876007}
   growTimer: {fileID: 6500276319469896314}
-  grownd:
+  onHarvested:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}

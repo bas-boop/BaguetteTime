@@ -2,6 +2,9 @@
 
 namespace Framework.Gameplay.HeldItemSystem
 {
+    /// <summary>
+    /// Temp class to test systems
+    /// </summary>
     public class TestHeldItem : HeldItem
     {
         private void OnCollisionEnter(Collision other)
