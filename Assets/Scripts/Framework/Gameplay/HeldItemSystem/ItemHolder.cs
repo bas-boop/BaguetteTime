@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Framework.Gameplay.HeldItemSystem
@@ -45,7 +46,28 @@ namespace Framework.Gameplay.HeldItemSystem
             return true;
         }
 
-        public HeldItem GetItemFormHolder(HeldItem targetItem) => heldItems.Contains(targetItem) ? targetItem : null;
+        public HeldItem GetItemFormHolder(HeldItem targetItem)
+        {
+            if (!heldItems.Contains(targetItem))
+                return null;
+            
+            targetItem.gameObject.SetActive(true);
+            heldItems.Remove(targetItem);
+            return targetItem;
+
+        }
+
+        public HeldItem GetItemFormHolder(HeldItemType targetItem)
+        {
+            foreach (HeldItem item in heldItems.Where(item => item.Type == targetItem))
+            {
+                item.gameObject.SetActive(true);
+                heldItems.Remove(item);
+                return item;
+            }
+
+            return null;
+        }
 
         private void UpdateItemToShow()
         {
