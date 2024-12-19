@@ -1983,6 +1983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbf53796abb4acf91a2183ef5a4870d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 1
   growHeight: 1.3
   growSpeed: 5
   growColor:

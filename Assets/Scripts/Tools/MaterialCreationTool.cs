@@ -63,14 +63,14 @@ namespace Tools
         {
             Material newMaterial = new (Shader.Find("Universal Render Pipeline/Lit"));
             const string NEW_MAT_NAME = "NewMaterial";
-            _lastCreatedMaterialPath = MATERIAL_DIRECTORY + NEW_MAT_NAME + MAT;
+            _lastCreatedMaterialPath = MATERIAL_RUNTIME_DIRECTORY + NEW_MAT_NAME + MAT;
             
             AssetDatabase.CreateAsset(newMaterial, _lastCreatedMaterialPath);
             
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             
-            Debug.Log($"Material created at {MATERIAL_DIRECTORY}");
+            Debug.Log($"Material created at {MATERIAL_RUNTIME_DIRECTORY}");
         }
     
         private static Material CreateMaterial(Material targetMat)

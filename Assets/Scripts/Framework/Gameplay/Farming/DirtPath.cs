@@ -10,7 +10,7 @@ namespace Framework.Gameplay.Farming
         [SerializeField] private Timer growTimer;
         [SerializeField] private UnityEvent onHarvested;
 
-        private PlantingState _currentState;
+        private InteractionState _currentState;
         
         private void Start() => grain.gameObject.SetActive(false);
 
@@ -18,17 +18,17 @@ namespace Framework.Gameplay.Farming
         {
             switch (_currentState)
             {
-                case PlantingState.HARVESTED:
-                    break;
-                case PlantingState.NOT_PLANTED:
-                    _currentState = PlantingState.PLANTED;
+                case InteractionState.EMPTY: // NOT PLANTED
+                    _currentState = InteractionState.DOING;
                     grain.StartGrowing();
                     growTimer.StartCounting();
                     break;
-                case PlantingState.PLANTED:
-                    _currentState = PlantingState.HARVESTED;
+                case InteractionState.DOING: // PLANTED
+                    _currentState = InteractionState.DONE;
                     grain.StopAllCoroutines();
                     onHarvested?.Invoke();
+                    break;
+                case InteractionState.DONE: // HARVESTED
                     break;
             }
         }
