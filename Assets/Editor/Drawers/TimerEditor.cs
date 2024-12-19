@@ -33,6 +33,8 @@ namespace Editor.Drawers
             EditorGUILayout.LabelField("Events", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(_onStart);
             EditorGUILayout.PropertyField(_onReset);
+            EditorGUILayout.PropertyField(_onTimerPassedThreshold);
+            EditorGUILayout.PropertyField(_onTimerDone);
             // EditorGUILayout.PropertyField(_isCountingUp.boolValue ? _onTimerPassedThreshold : _onTimerDone);
 
             serializedObject.ApplyModifiedProperties();

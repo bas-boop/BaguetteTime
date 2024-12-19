@@ -8,7 +8,7 @@ namespace Framework.Gameplay.HeldItemSystem
     {
         [SerializeField] private Paranter paranter;
         [SerializeField] private List<HeldItem> heldItems;
-        [SerializeField, Tooltip("There could only be 1 held item shown.")] private GameObject visibleItem;
+        [SerializeField, Tooltip("There could only be 1 held item shown.")] private HeldItem visibleItem;
 
         public void HoldItem(HeldItem targetItem)
         {
@@ -18,6 +18,15 @@ namespace Framework.Gameplay.HeldItemSystem
             heldItems.Add(targetItem);
             targetItem.IsBeingHeld = true;
             UpdateItemToShow();
+        }
+
+        public HeldItem CreateAndHoldItem(HeldItem targetItem)
+        {
+            HeldItem a = Instantiate(targetItem);
+            heldItems.Add(a);
+            a.IsBeingHeld = true;
+            UpdateItemToShow();
+            return a;
         }
         
         public bool ReleaseItem(HeldItem targetItem)
@@ -76,11 +85,14 @@ namespace Framework.Gameplay.HeldItemSystem
                 visibleItem = null;
                 return;
             }
+
+            if (visibleItem)
+            {
+                visibleItem.IsBeingHeld = false;
+                visibleItem.gameObject.SetActive(false);
+            }
             
-            if(visibleItem)
-                visibleItem.SetActive(false);
-            
-            visibleItem = heldItems[^1].gameObject;
+            visibleItem = heldItems[^1];
             paranter.SetObjectAsChild(visibleItem.transform);
         }
     }
