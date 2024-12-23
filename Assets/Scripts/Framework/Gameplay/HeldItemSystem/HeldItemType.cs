@@ -5,6 +5,7 @@
         NONE,
         GRAIN,
         FLOWER,
+        WATER,
         DOUGH,
         BREAD
     }

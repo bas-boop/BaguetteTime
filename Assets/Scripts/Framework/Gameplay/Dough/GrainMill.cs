@@ -2,7 +2,6 @@
 using UnityEngine;
 
 using Framework.Gameplay.HeldItemSystem;
-using UnityEngine.Serialization;
 
 namespace Framework.Gameplay.Dough
 {
