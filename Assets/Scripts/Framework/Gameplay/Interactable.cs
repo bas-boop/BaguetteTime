@@ -10,6 +10,7 @@ namespace Framework.Gameplay
         [SerializeField, Tag] protected string p_playerTag = "Player";
 
         protected GameObject p_player;
+        protected InteractionState p_currentState;
         
         public bool CanInteract { get; private set; }
 
@@ -32,5 +33,8 @@ namespace Framework.Gameplay
         }
 
         public abstract void DoInteraction();
+        
+        
+        public void SetStateToDone() => p_currentState = InteractionState.DONE;
     }
 }

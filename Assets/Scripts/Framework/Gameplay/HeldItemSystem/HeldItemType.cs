@@ -4,7 +4,7 @@
     {
         NONE,
         GRAIN,
-        FLOWER,
+        FLOUR,
         WATER,
         DOUGH,
         BREAD
