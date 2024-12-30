@@ -18,6 +18,10 @@ namespace Framework.Gameplay.Dough
             {
                 case InteractionState.EMPTY:
                     HeldItem grain = itemHolder.GetItemFormHolder(HeldItemType.GRAIN);
+                    
+                    if (!grain)
+                        return;
+                    
                     paranter.SetObjectAsChild(grain.transform);
                     gridingTimer.StartCounting();
                     p_currentState = InteractionState.DOING;
@@ -26,7 +30,12 @@ namespace Framework.Gameplay.Dough
                 case InteractionState.DOING:
                     paranter.GetChild().gameObject.SetActive(false);
                     Flour f = (Flour) itemHolder.CreateAndHoldItem(flourPrefab);
+                    
+                    if (!f)
+                        return;
+                    
                     f.MakeFlowerBad();
+                    gridingTimer.SetCanCount(false);
                     p_currentState = InteractionState.EMPTY;
                     break;
                 

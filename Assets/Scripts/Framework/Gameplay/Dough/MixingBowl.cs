@@ -36,6 +36,7 @@ namespace Framework.Gameplay.Dough
                     if (!_dough)
                         SpawnDough();
                     
+                    mixTimer.SetCanCount(false);
                     Done();
                     break;
                 case InteractionState.DONE:
