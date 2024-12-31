@@ -42,6 +42,8 @@ namespace Framework.Gameplay.HeldItemSystem
             onTakeItem?.Invoke();
         }
 
+        public abstract void TakeItemOrAction();
+        
         public abstract void TakeAction();
     }
 }

@@ -13,7 +13,7 @@ namespace Framework.Gameplay.Dough
 
         private bool _hasDough;
         
-        public void TakeItemOrAction()
+        public override void TakeItemOrAction()
         {
             if (_hasDough)
             {

@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 4
   visual: {fileID: 3365053643073789797}
+  bakedMat: {fileID: 2100000, guid: 08d54e6db205d00468b6e8da12983fdd, type: 2}
 --- !u!1 &8210345087669733450
 GameObject:
   m_ObjectHideFlags: 0
