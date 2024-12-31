@@ -5,7 +5,7 @@ using Tools;
 
 namespace Framework.Gameplay.Dough
 {
-    public class Flour : HeldItem
+    public sealed class Flour : HeldItem
     {
         [SerializeField] private MeshRenderer flowerMesh;
         [SerializeField] private Color badFlowerColor =  Color.magenta; 

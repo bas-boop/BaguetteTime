@@ -11,6 +11,7 @@ namespace Framework
         [SerializeField] private bool isCountingUp;
         [SerializeField] private bool canCountOnStart;
         [SerializeField] private bool canCount;
+        //todo: if both same, counting is not happening
         [SerializeField, Tooltip("Time in seconds to count down form.")] private float startingTime;
         [SerializeField, Tooltip("Time in seconds to count up to.")] private float timerThreshold;
 

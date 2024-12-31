@@ -14,17 +14,36 @@ namespace Framework.Gameplay.HeldItemSystem
         {
             HeldItem existingItem = itemHolder.GetItemFormHolder(targetItem);
             
-            if(!existingItem)
-                return;
+            if (existingItem)
+                SuccessfulTake(existingItem);
+        }
 
-            if (!itemHolder.ReleaseItem(targetItem))
-                throw new ($"Something broke here in {nameof(gameObject)}.");
-            
+        public void TakeItem(int targetItem) => TakeItem((HeldItemType) targetItem);
+        
+        public void TakeItem(HeldItemType targetItem)
+        {
+            HeldItem existingItem = itemHolder.GetItemFormHolder(targetItem);
+
+            if (existingItem)
+                SuccessfulTake(existingItem);
+        }
+
+        public void GiveBackItem()
+        {
+            if (p_takenItem)
+                itemHolder.HoldItem(p_takenItem);
+        }
+
+        private void SuccessfulTake(HeldItem existingItem)
+        {
             p_takenItem = existingItem;
+            p_takenItem.IsBeingHeld = false;
             TakeAction();
             onTakeItem?.Invoke();
         }
 
+        public abstract void TakeItemOrAction();
+        
         public abstract void TakeAction();
     }
 }

@@ -14,19 +14,8 @@ namespace Framework.Gameplay.HeldItemSystem
         {
             if (targetItem.IsBeingHeld)
                 return;
-            
-            heldItems.Add(targetItem);
-            targetItem.IsBeingHeld = true;
-            UpdateItemToShow();
-        }
 
-        public HeldItem CreateAndHoldItem(HeldItem targetItem)
-        {
-            HeldItem a = Instantiate(targetItem);
-            heldItems.Add(a);
-            a.IsBeingHeld = true;
-            UpdateItemToShow();
-            return a;
+            AddItem(targetItem);
         }
         
         public bool ReleaseItem(HeldItem targetItem)
@@ -54,14 +43,22 @@ namespace Framework.Gameplay.HeldItemSystem
             UpdateItemToShow();
             return true;
         }
+        
+        public HeldItem CreateAndHoldItem(HeldItem targetItem)
+        {
+            HeldItem newItem = Instantiate(targetItem);
+            AddItem(newItem);
+            return newItem;
+        }
 
         public HeldItem GetItemFormHolder(HeldItem targetItem)
         {
             if (!heldItems.Contains(targetItem))
                 return null;
             
-            targetItem.gameObject.SetActive(true);
             heldItems.Remove(targetItem);
+            UpdateItemToShow();
+            targetItem.gameObject.SetActive(true);
             return targetItem;
 
         }
@@ -70,14 +67,22 @@ namespace Framework.Gameplay.HeldItemSystem
         {
             foreach (HeldItem item in heldItems.Where(item => item.Type == targetItem))
             {
-                item.gameObject.SetActive(true);
                 heldItems.Remove(item);
+                UpdateItemToShow();
+                item.gameObject.SetActive(true);
                 return item;
             }
 
             return null;
         }
-
+        
+        private void AddItem(HeldItem item)
+        {
+            heldItems.Add(item);
+            item.IsBeingHeld = true;
+            UpdateItemToShow();
+        }
+        
         private void UpdateItemToShow()
         {
             if (heldItems.Count == 0)
@@ -93,6 +98,7 @@ namespace Framework.Gameplay.HeldItemSystem
             }
             
             visibleItem = heldItems[^1];
+            visibleItem.gameObject.SetActive(true);
             paranter.SetObjectAsChild(visibleItem.transform);
         }
     }

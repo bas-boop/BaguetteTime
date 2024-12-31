@@ -17,5 +17,14 @@ namespace Framework
         }
 
         public Transform GetChild() => _child;
+
+        public void DeleteChild()
+        {
+            if (!_child)
+                return;
+            
+            Destroy(_child.gameObject);
+            _child = null;
+        }
     }
 }
