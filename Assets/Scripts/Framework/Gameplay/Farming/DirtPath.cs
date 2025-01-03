@@ -33,7 +33,7 @@ namespace Framework.Gameplay.Farming
                     
                     _currentState = InteractionState.DONE;
                     grain.StopAllCoroutines();
-                    Score.Instance.IncreaseScore(grain.CurrentEvaluate * Score.Instance.MaxScoreAddAmount);
+                    Score.Instance.IncreaseScore(grain.CurrentEvaluate, true);
                     onHarvested?.Invoke();
                     break;
                 

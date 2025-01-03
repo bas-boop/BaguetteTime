@@ -15,6 +15,7 @@ namespace Framework.Gameplay.Dough
 
         private InteractionState _currentState;
         private bool _isOpen = true;
+        private float _t;
         
         public override void TakeItemOrAction()
         {
@@ -23,14 +24,19 @@ namespace Framework.Gameplay.Dough
                 case InteractionState.EMPTY:
                     TakeItem(HeldItemType.DOUGH);
                     break;
+                
                 case InteractionState.DOING:
                     bakeTimer.SetCanCount(false);
                     StopBaking();
+                    Score.Instance.IncreaseScore(_t, true);
                     StartCoroutine(TurnOvenDoor(false));
                     break;
+                
                 case InteractionState.DONE:
+                    Score.Instance.IncreaseScore(_t, true);
                     StartCoroutine(TurnOvenDoor(false));
                     break;
+                
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -58,13 +64,14 @@ namespace Framework.Gameplay.Dough
 
             while (elapsedTime < duration)
             {
-                float t = elapsedTime / duration;
-                door.rotation = Quaternion.Slerp(initialRotation, targetRotation, t);
+                _t = elapsedTime / duration;
+                door.rotation = Quaternion.Slerp(initialRotation, targetRotation, _t);
 
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
+            _t = 1;
             door.rotation = targetRotation;
             
             if (shouldBake)

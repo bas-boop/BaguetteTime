@@ -12,12 +12,14 @@ namespace Framework.Gameplay.Dough
         [SerializeField] private float growFactor = 0.03f;
 
         private bool _hasDough;
+        private float _t;
         
         public override void TakeItemOrAction()
         {
             if (_hasDough)
             {
                 GiveBackItem();
+                Score.Instance.IncreaseScore(_t, true);
                 _hasDough = false;
             }
             else
@@ -40,12 +42,13 @@ namespace Framework.Gameplay.Dough
 
             while (elapsedTime < riseTime)
             {
-                float t = elapsedTime / riseTime;
-                target.localScale = Vector3.Lerp(initialScale, targetScale, t);
+                _t = elapsedTime / riseTime;
+                target.localScale = Vector3.Lerp(initialScale, targetScale, _t);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
+            _t = 1;
             target.localScale = targetScale;
         }
     }

@@ -37,9 +37,11 @@ namespace Framework.Gameplay.Dough
                         SpawnDough();
                     
                     mixTimer.SetCanCount(false);
+                    Score.Instance.IncreaseScore(mixTimer.GetCurrentTimerPercentage(), true);
                     Done();
                     break;
                 case InteractionState.DONE:
+                    Score.Instance.IncreaseScore(null);
                     Done();
                     break;
                 default:

@@ -25,5 +25,18 @@ namespace Framework.Gameplay
             
             score += (float) targetAmount;
         }
+        
+        public void IncreaseScore(float? targetAmount, bool isBetweenZeroAndOne)
+        {
+            if (isBetweenZeroAndOne)
+                targetAmount *= maxScoreAddAmount;
+            
+            targetAmount ??= maxScoreAddAmount;
+            
+            if (targetAmount > maxScoreAddAmount)
+                targetAmount = maxScoreAddAmount;
+            
+            score += (float) targetAmount;
+        }
     }
 }
