@@ -4,6 +4,7 @@ namespace Framework
 {
     public abstract class Singleton<T> : MonoBehaviour where T : Component
     {
+        protected static bool CanDestroyOnLoad;
         private static T _instance;
 
         /// <summary>
@@ -23,7 +24,9 @@ namespace Framework
                 
                 GameObject singletonObject = new (typeof(T).Name);
                 _instance = singletonObject.AddComponent<T>();
-                DontDestroyOnLoad(singletonObject);
+                
+                if(!CanDestroyOnLoad)
+                    DontDestroyOnLoad(singletonObject);
 
                 return _instance;
             }

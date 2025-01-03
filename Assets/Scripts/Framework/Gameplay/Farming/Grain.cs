@@ -16,6 +16,8 @@ namespace Framework.Gameplay.Farming
         [SerializeField] private Material startMat;
         [SerializeField] private GameObject[] mats;
 
+        public float CurrentEvaluate { get; private set; }
+
         private bool _isGrowing;
         private Vector3 _startPosition;
         private Vector3 _finalPosition;
@@ -58,13 +60,15 @@ namespace Framework.Gameplay.Farming
             while (elapsedTime < duration)
             {
                 transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
-                _runtimeMaterial.color = growColor.Evaluate(elapsedTime / duration);
+                CurrentEvaluate = elapsedTime / duration;
+                _runtimeMaterial.color = growColor.Evaluate(CurrentEvaluate);
 
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            _runtimeMaterial.color = growColor.Evaluate(1);
+            CurrentEvaluate = 1;
+            _runtimeMaterial.color = growColor.Evaluate(CurrentEvaluate);
             transform.position = targetPosition;
         }
 
