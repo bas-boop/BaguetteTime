@@ -36,12 +36,14 @@ namespace Framework.Gameplay.Dough
                     
                     f.MakeFlowerBad();
                     gridingTimer.SetCanCount(false);
+                    Score.Instance.IncreaseScore(gridingTimer.GetCurrentTimerPercentage(), true);
                     p_currentState = InteractionState.EMPTY;
                     break;
                 
                 case InteractionState.DONE:
                     paranter.GetChild().gameObject.SetActive(false);
                     itemHolder.CreateAndHoldItem(flourPrefab);
+                    Score.Instance.IncreaseScore(null);
                     p_currentState = InteractionState.EMPTY;
                     break;
                 
