@@ -8,6 +8,8 @@ namespace Framework.Gameplay
         // [field: SerializeField] is not possible anymore, since Unity 6 :cry:
         [SerializeField] private float maxScoreAddAmount = 20;
         
+        public float GetScore => score;
+        
         public float MaxScoreAddAmount => maxScoreAddAmount;
 
         protected override void Awake()

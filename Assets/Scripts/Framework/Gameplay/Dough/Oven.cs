@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Framework.Gameplay.HeldItemSystem;
 
@@ -12,6 +13,8 @@ namespace Framework.Gameplay.Dough
         [SerializeField] private Timer bakeTimer;
         [SerializeField] private Transform door;
         [SerializeField] private float duration = 2f;
+
+        [SerializeField] private UnityEvent onBreadBaked = new();
 
         private InteractionState _currentState;
         private bool _isOpen = true;
@@ -33,8 +36,7 @@ namespace Framework.Gameplay.Dough
                     break;
                 
                 case InteractionState.DONE:
-                    Score.Instance.IncreaseScore(_t, true);
-                    StartCoroutine(TurnOvenDoor(false));
+                    StopBaking();
                     break;
                 
                 default:
@@ -50,8 +52,11 @@ namespace Framework.Gameplay.Dough
 
         public void StopBaking()
         {
-            _currentState = InteractionState.DONE;
+            _currentState = InteractionState.EMPTY;
+            Score.Instance.IncreaseScore(_t, true);
+            StartCoroutine(TurnOvenDoor(false));
             ((Dough) p_takenItem).Bread();
+            onBreadBaked?.Invoke();
         }
 
         private IEnumerator TurnOvenDoor(bool shouldBake)

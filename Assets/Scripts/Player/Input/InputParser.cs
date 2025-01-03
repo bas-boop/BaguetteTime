@@ -17,6 +17,7 @@ namespace Player.Input
         private PlayerInput _playerInput;
         private InputActionAsset _playerControlsActions;
         private bool _isWalking;
+        private bool _canMove = true;
 
         private void Awake()
         {
@@ -26,6 +27,9 @@ namespace Player.Input
 
         private void FixedUpdate()
         {
+            if (!_canMove)
+                return;
+            
             Vector2 moveInput = _playerControlsActions[InputActions.MOVE_ACTION].ReadValue<Vector2>();
 
             if (moveInput == Vector2.zero)
@@ -45,6 +49,9 @@ namespace Player.Input
 
         private void LateUpdate()
         {
+            if (!_canMove)
+                return;
+            
             Vector2 cameraInput = _playerControlsActions[InputActions.ROTATE_ACTION].ReadValue<Vector2>();
             rotator.Rotate(cameraInput);
         }
@@ -52,6 +59,8 @@ namespace Player.Input
         private void OnEnable() => AddListeners();
 
         private void OnDisable() => RemoveListeners();
+
+        public void CantMoveAnymore() => _canMove = false;
 
         private void AddListeners()
         {
@@ -63,6 +72,12 @@ namespace Player.Input
             _playerControlsActions[InputActions.INTERACT_ACTION].performed += Interact;
         }
 
-        private void Interact(InputAction.CallbackContext obj) => interactManager.CheckInteraction();
+        private void Interact(InputAction.CallbackContext obj)
+        {
+            if (!_canMove)
+                return;
+            
+            interactManager.CheckInteraction();
+        }
     }
 }
