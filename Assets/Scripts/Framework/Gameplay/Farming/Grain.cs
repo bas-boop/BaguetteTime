@@ -67,8 +67,8 @@ namespace Framework.Gameplay.Farming
                 yield return null;
             }
 
-            CurrentEvaluate = 1;
             _runtimeMaterial.color = growColor.Evaluate(CurrentEvaluate);
+            CurrentEvaluate = 1;
             transform.position = targetPosition;
         }
 

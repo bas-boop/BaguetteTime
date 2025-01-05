@@ -35,6 +35,6 @@ namespace Framework.Gameplay
         public abstract void DoInteraction();
         
         
-        public void SetStateToDone() => p_currentState = InteractionState.DONE;
+        public virtual void SetStateToDone() => p_currentState = InteractionState.DONE;
     }
 }

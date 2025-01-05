@@ -11,6 +11,7 @@ namespace Framework.Gameplay.Dough
         [SerializeField] private float riseTime = 2;
         [SerializeField] private float growFactor = 0.03f;
 
+        private Vector3 _baguetteScale = new(0.3f, 0.3f, 0.9f);
         private bool _hasDough;
         private float _t;
         
@@ -31,6 +32,7 @@ namespace Framework.Gameplay.Dough
             paranter.SetObjectAsChild(p_takenItem.transform);
             _hasDough = true;
             Transform t = ((Dough) p_takenItem).GetVisual();
+            t.localScale = _baguetteScale;
             StartCoroutine(RiseDough(t));
         }
 

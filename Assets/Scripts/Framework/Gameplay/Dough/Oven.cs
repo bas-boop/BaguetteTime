@@ -32,7 +32,6 @@ namespace Framework.Gameplay.Dough
                     bakeTimer.SetCanCount(false);
                     StopBaking();
                     Score.Instance.IncreaseScore(_t, true);
-                    StartCoroutine(TurnOvenDoor(false));
                     break;
                 
                 case InteractionState.DONE:
