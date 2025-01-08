@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Framework.Gameplay.HeldItemSystem;
 
@@ -11,7 +12,10 @@ namespace Framework.Gameplay.Dough
         [SerializeField] private float riseTime = 2;
         [SerializeField] private float growFactor = 0.03f;
 
-        private Vector3 _baguetteScale = new(0.3f, 0.3f, 0.9f);
+        [SerializeField] private UnityEvent onRisen = new();
+
+        private readonly Vector3 _baguetteScale = new(0.3f, 0.3f, 0.9f);
+        private readonly Vector3 _believableDoughSize = Vector3.one * 0.35f;
         private bool _hasDough;
         private float _t;
         
@@ -32,14 +36,14 @@ namespace Framework.Gameplay.Dough
             paranter.SetObjectAsChild(p_takenItem.transform);
             _hasDough = true;
             Transform t = ((Dough) p_takenItem).GetVisual();
-            t.localScale = _baguetteScale;
+            t.localScale = _believableDoughSize;
             StartCoroutine(RiseDough(t));
         }
 
         private IEnumerator RiseDough(Transform target)
         {
             Vector3 initialScale = target.localScale;
-            Vector3 targetScale = initialScale * (1 + growFactor);
+            Vector3 targetScale = _baguetteScale * (1 + growFactor);
             float elapsedTime = 0;
 
             while (elapsedTime < riseTime)
@@ -52,6 +56,7 @@ namespace Framework.Gameplay.Dough
 
             _t = 1;
             target.localScale = targetScale;
+            onRisen?.Invoke();
         }
     }
 }

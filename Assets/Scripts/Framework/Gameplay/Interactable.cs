@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 using Framework.Attributes;
 
@@ -8,6 +9,8 @@ namespace Framework.Gameplay
     public abstract class Interactable : MonoBehaviour
     {
         [SerializeField, Tag] protected string p_playerTag = "Player";
+        [SerializeField] private UnityEvent onEnter = new();
+        [SerializeField] private UnityEvent onExit = new();
 
         protected GameObject p_player;
         protected InteractionState p_currentState;
@@ -21,6 +24,7 @@ namespace Framework.Gameplay
             
             CanInteract = true;
             p_player = other.gameObject;
+            onEnter?.Invoke();
         }
 
         protected virtual void OnTriggerExit(Collider other)
@@ -30,6 +34,7 @@ namespace Framework.Gameplay
             
             CanInteract = false;
             p_player = null;
+            onExit?.Invoke();
         }
 
         public abstract void DoInteraction();

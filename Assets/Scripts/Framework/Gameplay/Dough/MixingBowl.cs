@@ -7,6 +7,7 @@ namespace Framework.Gameplay.Dough
 {
     public sealed class MixingBowl : Interactable
     {
+        [SerializeField] private InteractManager interactManager;
         [SerializeField] private HeldItem doughPrefab;
         [SerializeField] private Timer mixTimer;
         [SerializeField] private ItemHolder itemHolder;
@@ -97,6 +98,7 @@ namespace Framework.Gameplay.Dough
                     
                     _currentMixingState = MixingState.HAS_BOTH;
                     one.SetObjectAsChild(heldItem.transform);
+                    interactManager.CheckDistance(this);
                     break;
                 
                 case MixingState.HAS_WATER:
@@ -107,6 +109,7 @@ namespace Framework.Gameplay.Dough
                     
                     _currentMixingState = MixingState.HAS_BOTH;
                     two.SetObjectAsChild(heldItem.transform);
+                    interactManager.CheckDistance(this);
                     break;
                 
                 case MixingState.HAS_BOTH:
@@ -128,6 +131,7 @@ namespace Framework.Gameplay.Dough
         {
             DeleteIngredients();
             itemHolder.HoldItem(_dough);
+            interactManager.CheckDistance(this);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Framework.Extensions;
 using Framework.Gameplay.HeldItemSystem;
@@ -16,6 +17,8 @@ namespace Framework.Gameplay.Farming
         [SerializeField] private Material startMat;
         [SerializeField] private GameObject[] mats;
 
+        [SerializeField] private UnityEvent onGrown = new();
+        
         public float CurrentEvaluate { get; private set; }
 
         private bool _isGrowing;
@@ -70,6 +73,7 @@ namespace Framework.Gameplay.Farming
             _runtimeMaterial.color = growColor.Evaluate(CurrentEvaluate);
             CurrentEvaluate = 1;
             transform.position = targetPosition;
+            onGrown?.Invoke();
         }
 
         /// <summary>
