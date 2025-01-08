@@ -12,6 +12,7 @@ namespace Framework.Gameplay.Dough
         [SerializeField] private Paranter paranter;
         [SerializeField] private Timer bakeTimer;
         [SerializeField] private Transform door;
+        [SerializeField] private GameObject lamp;
         [SerializeField] private float duration = 2f;
 
         [SerializeField] private UnityEvent onBreadBaked = new();
@@ -53,6 +54,7 @@ namespace Framework.Gameplay.Dough
         {
             _currentState = InteractionState.EMPTY;
             Score.Instance.IncreaseScore(_t, true);
+            lamp.SetActive(false);
             StartCoroutine(TurnOvenDoor(false));
             ((Dough) p_takenItem).Bread();
             onBreadBaked?.Invoke();
@@ -86,6 +88,7 @@ namespace Framework.Gameplay.Dough
         {
             bakeTimer.SetCanCount(true);
             _currentState = InteractionState.DOING;
+            lamp.SetActive(true);
         }
     }
 }

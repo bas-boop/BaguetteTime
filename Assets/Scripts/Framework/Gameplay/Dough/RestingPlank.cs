@@ -23,6 +23,7 @@ namespace Framework.Gameplay.Dough
         {
             if (_hasDough)
             {
+                StopAllCoroutines();
                 GiveBackItem();
                 Score.Instance.IncreaseScore(_t, true);
                 _hasDough = false;
