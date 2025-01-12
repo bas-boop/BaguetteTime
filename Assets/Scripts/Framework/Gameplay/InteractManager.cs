@@ -11,9 +11,12 @@ namespace Framework.Gameplay
         {
             foreach (Interactable interactable in interactables)
             {
+                Debug.Log(interactable.name);
+                
                 if (!interactable.CanInteract)
                     continue;
                 
+                Debug.Log(interactable.name + " succes");
                 buttonPrompt.SetActive(false);
                 interactable.DoInteraction();
                 break;

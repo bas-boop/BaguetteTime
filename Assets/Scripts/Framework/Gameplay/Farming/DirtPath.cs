@@ -14,17 +14,22 @@ namespace Framework.Gameplay.Farming
         [SerializeField] private UnityEvent onHarvested;
 
         private InteractionState _currentState;
+        private bool _isHarvested;
         
         private void Start() => grain.gameObject.SetActive(false);
 
         public override void DoInteraction()
         {
+            if (_isHarvested)
+                return;
+            
             switch (_currentState)
             {
                 case InteractionState.EMPTY: // NOT PLANTED
                     _currentState = InteractionState.DOING;
                     grain.StartGrowing();
                     growTimer.StartCounting();
+                    Debug.Log($"empty + {gameObject.name}");
                     break;
                 
                 case InteractionState.DOING: // PLANTED
@@ -34,13 +39,15 @@ namespace Framework.Gameplay.Farming
                     _currentState = InteractionState.DONE;
                     grain.StopAllCoroutines();
                     Score.Instance.IncreaseScore(grain.CurrentEvaluate, true);
-                    onHarvested?.Invoke();
+                    WhenHarvested();
+                    Debug.Log($"growing + {gameObject.name}");
                     break;
                 
                 case InteractionState.DONE: // HARVESTED
                     HasWater();
                     Score.Instance.IncreaseScore(null);
-                    onHarvested?.Invoke();
+                    WhenHarvested();
+                    Debug.Log($"grown + {gameObject.name}");
                     break;
             }
         }
@@ -55,6 +62,14 @@ namespace Framework.Gameplay.Farming
             Destroy(water.gameObject);
             Score.Instance.IncreaseScore(null);
             return true;
+        }
+
+        private void WhenHarvested()
+        {
+            _isHarvested = true;
+            CanInteract = false;
+            p_collider.enabled = false;
+            onHarvested?.Invoke();
         }
     }
 }

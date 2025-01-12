@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
+using Framework;
 using Framework.Gameplay;
 
 namespace Player.Input
@@ -13,6 +14,7 @@ namespace Player.Input
         [SerializeField] private Movement movement;
         [SerializeField] private Rotator rotator;
         [SerializeField] private InteractManager interactManager;
+        [SerializeField] private SceneSwitcher sceneSwitcher;
         
         private PlayerInput _playerInput;
         private InputActionAsset _playerControlsActions;
@@ -65,11 +67,13 @@ namespace Player.Input
         private void AddListeners()
         {
             _playerControlsActions[InputActions.INTERACT_ACTION].performed += Interact;
+            _playerControlsActions[InputActions.RESTART_ACTION].performed += Restart;
         }
         
         private void RemoveListeners()
         {
-            _playerControlsActions[InputActions.INTERACT_ACTION].performed += Interact;
+            _playerControlsActions[InputActions.INTERACT_ACTION].performed -= Interact;
+            _playerControlsActions[InputActions.RESTART_ACTION].performed -= Restart;
         }
 
         private void Interact(InputAction.CallbackContext obj)
@@ -78,6 +82,12 @@ namespace Player.Input
                 return;
             
             interactManager.CheckInteraction();
+        }
+
+        private void Restart(InputAction.CallbackContext obj)
+        {
+            if (sceneSwitcher)
+                sceneSwitcher.LoadScene();
         }
     }
 }

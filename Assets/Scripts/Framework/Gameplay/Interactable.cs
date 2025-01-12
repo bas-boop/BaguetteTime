@@ -13,9 +13,12 @@ namespace Framework.Gameplay
         [SerializeField] private UnityEvent onExit = new();
 
         protected GameObject p_player;
+        protected Collider p_collider;
         protected InteractionState p_currentState;
         
-        public bool CanInteract { get; private set; }
+        public bool CanInteract { get; protected set; }
+
+        private void Awake() => p_collider = GetComponent<Collider>();
 
         protected virtual void OnTriggerEnter(Collider other)
         {

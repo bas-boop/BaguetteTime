@@ -54,6 +54,7 @@ namespace Framework.Gameplay.Farming
         private IEnumerator MoveToPosition(Vector3 targetPosition, float duration)
         {
             Vector3 startPosition = transform.position;
+            
             _runtimeMaterial = MaterialCreationTool.CreateMaterialCopy(startMat);
             _runtimeMaterial.color = growColor.Evaluate(0);
             UpdateMats(_runtimeMaterial);

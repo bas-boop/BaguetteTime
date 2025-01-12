@@ -3,13 +3,11 @@
 using UnityEngine;
 
 using Framework.Extensions;
-using Framework.Gameplay;
 using Player.Input;
 
 namespace Player
 {
-    [RequireComponent(typeof(UniversalGroundChecker), 
-        typeof(Rigidbody),
+    [RequireComponent(typeof(Rigidbody),
         typeof(InputParser))]
     public sealed class Movement : MonoBehaviour
     {
@@ -18,20 +16,15 @@ namespace Player
         [SerializeField, Range(0.1f, 50)] private float moveSpeed = 3;
         [SerializeField] private float deceleration = 2;
 
-        private UniversalGroundChecker _groundChecker;
         private Rigidbody _rigidbody;
         
         private void Awake()
         {
-            _groundChecker = GetComponent<UniversalGroundChecker>();
             _rigidbody = GetComponent<Rigidbody>();
         }
         
         public void Walk(Vector2 moveInput)
         {
-            if (!_groundChecker.IsGrounded)
-                return;
-            
             Vector3 newVelocity = CalculateDirection(moveInput) * moveSpeed;
             _rigidbody.velocity = new (newVelocity.x, _rigidbody.velocity.y, newVelocity.z);
         }
