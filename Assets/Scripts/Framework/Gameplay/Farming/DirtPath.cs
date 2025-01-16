@@ -29,7 +29,6 @@ namespace Framework.Gameplay.Farming
                     _currentState = InteractionState.DOING;
                     grain.StartGrowing();
                     growTimer.StartCounting();
-                    Debug.Log($"empty + {gameObject.name}");
                     break;
                 
                 case InteractionState.DOING: // PLANTED
@@ -40,14 +39,12 @@ namespace Framework.Gameplay.Farming
                     grain.StopAllCoroutines();
                     Score.Instance.IncreaseScore(grain.CurrentEvaluate, true);
                     WhenHarvested();
-                    Debug.Log($"growing + {gameObject.name}");
                     break;
                 
                 case InteractionState.DONE: // HARVESTED
                     HasWater();
                     Score.Instance.IncreaseScore(null);
                     WhenHarvested();
-                    Debug.Log($"grown + {gameObject.name}");
                     break;
             }
         }
